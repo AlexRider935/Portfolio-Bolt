@@ -1,12 +1,17 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal as TerminalIcon, X, Minimize2, Maximize2 } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Terminal as TerminalIcon,
+  X,
+  Minimize2,
+  Maximize2,
+} from "lucide-react";
 
 const Terminal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -14,139 +19,139 @@ const Terminal = () => {
 
   const commands = {
     help: {
-      description: 'Show available commands',
+      description: "Show available commands",
       execute: () => [
-        'Available commands:',
-        '  help     - Show this help message',
-        '  about    - Learn more about Alex',
-        '  skills   - List technical skills',
-        '  projects - Show recent projects',
-        '  contact  - Get contact information',
-        '  clear    - Clear terminal',
-        '  whoami   - Display current user',
-        '  ls       - List directory contents',
-        '  cat      - Display file contents',
-        '  sudo     - Execute with elevated privileges',
-        '  exit     - Close terminal'
-      ]
+        "Available commands:",
+        "  help     - Show this help message",
+        "  about    - Learn more about Alex",
+        "  skills   - List technical skills",
+        "  projects - Show recent projects",
+        "  contact  - Get contact information",
+        "  clear    - Clear terminal",
+        "  whoami   - Display current user",
+        "  ls       - List directory contents",
+        "  cat      - Display file contents",
+        "  sudo     - Execute with elevated privileges",
+        "  exit     - Close terminal",
+      ],
     },
     about: {
-      description: 'Learn more about Alex',
+      description: "Learn more about Alex",
       execute: () => [
-        'Alex Chen - Full Stack Developer & Security Researcher',
-        '',
-        'Passionate about building secure, scalable applications',
-        'and hunting for vulnerabilities in the digital realm.',
-        '',
-        'Experience: 5+ years in development and cybersecurity',
-        'Location: San Francisco, CA',
-        'Status: Available for new opportunities'
-      ]
+        "Alex Chen - Full Stack Developer & Security Researcher",
+        "",
+        "Passionate about building secure, scalable applications",
+        "and hunting for vulnerabilities in the digital realm.",
+        "",
+        "Experience: 5+ years in development and cybersecurity",
+        "Location: San Francisco, CA",
+        "Status: Available for new opportunities",
+      ],
     },
     skills: {
-      description: 'List technical skills',
+      description: "List technical skills",
       execute: () => [
-        'Technical Skills:',
-        '',
-        'Languages:     JavaScript, Python, Go, Rust, TypeScript',
-        'Frontend:      React, Next.js, Vue.js, Tailwind CSS',
-        'Backend:       Node.js, Express, FastAPI, Gin',
-        'Databases:     PostgreSQL, MongoDB, Redis',
-        'Cloud:         AWS, Docker, Kubernetes',
-        'Security:      Penetration Testing, OWASP, Burp Suite',
-        'Tools:         Git, VS Code, Wireshark, Metasploit'
-      ]
+        "Technical Skills:",
+        "",
+        "Languages:     JavaScript, Python, Go, Rust, TypeScript",
+        "Frontend:      React, Next.js, Vue.js, Tailwind CSS",
+        "Backend:       Node.js, Express, FastAPI, Gin",
+        "Databases:     PostgreSQL, MongoDB, Redis",
+        "Cloud:         AWS, Docker, Kubernetes",
+        "Security:      Penetration Testing, OWASP, Burp Suite",
+        "Tools:         Git, VS Code, Wireshark, Metasploit",
+      ],
     },
     projects: {
-      description: 'Show recent projects',
+      description: "Show recent projects",
       execute: () => [
-        'Recent Projects:',
-        '',
-        '1. SecureVault     - End-to-end encrypted password manager',
-        '2. ThreatHunter    - AI-powered threat detection system',
-        '3. CloudGuard      - Automated cloud security compliance',
-        '4. VulnScanner     - High-performance vulnerability scanner',
-        '',
-        'Type "cat project_name" for more details'
-      ]
+        "Recent Projects:",
+        "",
+        "1. SecureVault     - End-to-end encrypted password manager",
+        "2. ThreatHunter    - AI-powered threat detection system",
+        "3. CloudGuard      - Automated cloud security compliance",
+        "4. VulnScanner     - High-performance vulnerability scanner",
+        "",
+        'Type "cat project_name" for more details',
+      ],
     },
     contact: {
-      description: 'Get contact information',
+      description: "Get contact information",
       execute: () => [
-        'Contact Information:',
-        '',
-        'Email:     alex.chen@example.com',
-        'LinkedIn:  linkedin.com/in/alexchen',
-        'GitHub:    github.com/alexchen',
-        'Website:   alexchen.dev',
-        '',
-        'Response time: Usually within 24 hours'
-      ]
+        "Contact Information:",
+        "",
+        "Email:     alex.chen@example.com",
+        "LinkedIn:  linkedin.com/in/alexchen",
+        "GitHub:    github.com/alexchen",
+        "Website:   alexchen.dev",
+        "",
+        "Response time: Usually within 24 hours",
+      ],
     },
     whoami: {
-      description: 'Display current user',
-      execute: () => ['guest@alexchen.dev']
+      description: "Display current user",
+      execute: () => ["guest@alexchen.dev"],
     },
     ls: {
-      description: 'List directory contents',
+      description: "List directory contents",
       execute: () => [
-        'total 8',
-        'drwxr-xr-x  2 alex  staff   64 Dec 15 10:30 projects/',
-        'drwxr-xr-x  2 alex  staff   64 Dec 15 10:30 skills/',
-        '-rw-r--r--  1 alex  staff  1.2K Dec 15 10:30 about.txt',
-        '-rw-r--r--  1 alex  staff  856 Dec 15 10:30 contact.txt',
-        '-rw-r--r--  1 alex  staff  2.1K Dec 15 10:30 resume.pdf'
-      ]
+        "total 8",
+        "drwxr-xr-x  2 alex  staff   64 Dec 15 10:30 projects/",
+        "drwxr-xr-x  2 alex  staff   64 Dec 15 10:30 skills/",
+        "-rw-r--r--  1 alex  staff  1.2K Dec 15 10:30 about.txt",
+        "-rw-r--r--  1 alex  staff  856 Dec 15 10:30 contact.txt",
+        "-rw-r--r--  1 alex  staff  2.1K Dec 15 10:30 resume.pdf",
+      ],
     },
     clear: {
-      description: 'Clear terminal',
+      description: "Clear terminal",
       execute: () => {
         setHistory([]);
         return [];
-      }
+      },
     },
     exit: {
-      description: 'Close terminal',
+      description: "Close terminal",
       execute: () => {
         setIsOpen(false);
-        return ['Terminal session ended.'];
-      }
-    }
+        return ["Terminal session ended."];
+      },
+    },
   };
 
   const executeCommand = (cmd) => {
     const trimmedCmd = cmd.trim().toLowerCase();
-    
-    if (trimmedCmd === '') return [];
-    
+
+    if (trimmedCmd === "") return [];
+
     // Add to command history
-    setCommandHistory(prev => [...prev, cmd]);
+    setCommandHistory((prev) => [...prev, cmd]);
     setHistoryIndex(-1);
-    
+
     // Handle special commands
-    if (trimmedCmd.startsWith('cat ')) {
+    if (trimmedCmd.startsWith("cat ")) {
       const filename = trimmedCmd.substring(4);
-      if (filename === 'about.txt') {
+      if (filename === "about.txt") {
         return commands.about.execute();
-      } else if (filename === 'contact.txt') {
+      } else if (filename === "contact.txt") {
         return commands.contact.execute();
       } else {
         return [`cat: ${filename}: No such file or directory`];
       }
     }
-    
-    if (trimmedCmd.startsWith('sudo ')) {
+
+    if (trimmedCmd.startsWith("sudo ")) {
       return [
-        'sudo: Permission denied.',
-        'Nice try! 😄',
-        'This is a demo terminal - no sudo access here.'
+        "sudo: Permission denied.",
+        "Nice try! 😄",
+        "This is a demo terminal - no sudo access here.",
       ];
     }
-    
+
     if (commands[trimmedCmd]) {
       return commands[trimmedCmd].execute();
     }
-    
+
     return [`Command not found: ${cmd}. Type 'help' for available commands.`];
   };
 
@@ -154,30 +159,33 @@ const Terminal = () => {
     e.preventDefault();
     if (input.trim()) {
       const output = executeCommand(input);
-      setHistory(prev => [
+      setHistory((prev) => [
         ...prev,
-        { type: 'input', content: `guest@alexchen.dev:~$ ${input}` },
-        { type: 'output', content: output }
+        { type: "input", content: `guest@alexchen.dev:~$ ${input}` },
+        { type: "output", content: output },
       ]);
-      setInput('');
+      setInput("");
     }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'ArrowUp') {
+    if (e.key === "ArrowUp") {
       e.preventDefault();
       if (commandHistory.length > 0) {
-        const newIndex = historyIndex === -1 ? commandHistory.length - 1 : Math.max(0, historyIndex - 1);
+        const newIndex =
+          historyIndex === -1
+            ? commandHistory.length - 1
+            : Math.max(0, historyIndex - 1);
         setHistoryIndex(newIndex);
         setInput(commandHistory[newIndex]);
       }
-    } else if (e.key === 'ArrowDown') {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (historyIndex !== -1) {
         const newIndex = historyIndex + 1;
         if (newIndex >= commandHistory.length) {
           setHistoryIndex(-1);
-          setInput('');
+          setInput("");
         } else {
           setHistoryIndex(newIndex);
           setInput(commandHistory[newIndex]);
@@ -194,14 +202,14 @@ const Terminal = () => {
 
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.ctrlKey && e.key === '`') {
+      if (e.ctrlKey && e.key === "`") {
         e.preventDefault();
         setIsOpen(!isOpen);
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, [isOpen]);
 
   return (
@@ -214,8 +222,7 @@ const Terminal = () => {
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2 }}
-      >
+        transition={{ delay: 2 }}>
         <TerminalIcon className="w-6 h-6 text-black" />
       </motion.button>
 
@@ -226,20 +233,18 @@ const Terminal = () => {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+            exit={{ opacity: 0 }}>
             <motion.div
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            
+
             <motion.div
               className="relative w-full max-w-4xl h-96 bg-black/90 backdrop-blur-md border border-green-500/30 rounded-lg overflow-hidden"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            >
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}>
               {/* Terminal Header */}
               <div className="flex items-center justify-between p-3 bg-gray-900/50 border-b border-green-500/30">
                 <div className="flex items-center space-x-2">
@@ -258,10 +263,9 @@ const Terminal = () => {
                   <button className="p-1 hover:bg-gray-700 rounded">
                     <Maximize2 className="w-4 h-4 text-gray-400" />
                   </button>
-                  <button 
+                  <button
                     onClick={() => setIsOpen(false)}
-                    className="p-1 hover:bg-red-500 rounded"
-                  >
+                    className="p-1 hover:bg-red-500 rounded">
                     <X className="w-4 h-4 text-gray-400 hover:text-white" />
                   </button>
                 </div>
@@ -279,11 +283,11 @@ const Terminal = () => {
                       <br />
                     </div>
                   )}
-                  
+
                   {/* Command history */}
                   {history.map((entry, index) => (
                     <div key={index} className="mb-2">
-                      {entry.type === 'input' ? (
+                      {entry.type === "input" ? (
                         <div className="text-green-400">{entry.content}</div>
                       ) : (
                         <div className="text-gray-300">
@@ -298,10 +302,12 @@ const Terminal = () => {
                       )}
                     </div>
                   ))}
-                  
+
                   {/* Current input line */}
                   <form onSubmit={handleSubmit} className="flex items-center">
-                    <span className="text-green-400 mr-2">guest@alexchen.dev:~$</span>
+                    <span className="text-green-400 mr-2">
+                      guest@alexchen.dev:~$
+                    </span>
                     <input
                       ref={inputRef}
                       type="text"
@@ -324,5 +330,3 @@ const Terminal = () => {
 };
 
 export default Terminal;
-
-export default Terminal
