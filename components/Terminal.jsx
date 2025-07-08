@@ -80,7 +80,7 @@ const Terminal = () => {
       execute: () => [
         "Contact Information:",
         "",
-        "Email:     alex.chen@example.com",
+        "Email:     Alex.Rider@example.com",
         "LinkedIn:  linkedin.com/in/alexchen",
         "GitHub:    github.com/alexchen",
         "Website:   alexchen.dev",

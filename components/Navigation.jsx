@@ -54,7 +54,7 @@ const Navigation = () => {
             >
               <Terminal className="w-6 h-6 text-cyan-400" />
               <span className="font-mono text-lg font-bold neon-text">
-                alex.chen
+                Alex.Rider
               </span>
             </motion.div>
 
@@ -118,7 +118,7 @@ const Navigation = () => {
                 <div className="flex items-center space-x-2">
                   <Terminal className="w-6 h-6 text-cyan-400" />
                   <span className="font-mono text-lg font-bold neon-text">
-                    alex.chen
+                    Alex.Rider
                   </span>
                 </div>
                 <button

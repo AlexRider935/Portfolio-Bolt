@@ -33,8 +33,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'alex.chen@example.com',
-      href: 'mailto:alex.chen@example.com'
+      value: 'Alex.Rider@example.com',
+      href: 'mailto:Alex.Rider@example.com'
     },
     {
       icon: MapPin,
@@ -240,7 +240,7 @@ const Contact = () => {
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                     </div>
                     <div className="font-mono text-green-400 text-sm">
-                      <p>$ curl -X POST https://alex.chen/contact</p>
+                      <p>$ curl -X POST https://Alex.Rider/contact</p>
                       <p className="text-white mt-2">
                         {"{"}<br />
                         &nbsp;&nbsp;"status": "ready_to_collaborate",<br />
